@@ -10,7 +10,7 @@ VEIN_DEP_TCP = 1
 VEIN_DEP_HELPER = 1
 VEIN_DEP_HASH = 1
 VEIN_DEP_QML = 1
-VEIN_DEP_BINARY_LOGGER = 1
+VEIN_DEP_LOGGER = 1
 
 exists( ../../vein-framework.pri ) {
   include(../../vein-framework.pri)
