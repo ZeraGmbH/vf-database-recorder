@@ -33,6 +33,10 @@ int main(int argc, char *argv[])
 //                                                QString("%1.debug=false").arg(VEIN_STORAGE_HASH_VERBOSE().categoryName()) <<
                                                 QString("%1.debug=false").arg(VEIN_API_QML_VERBOSE().categoryName());
 
+  const VeinLogger::DBFactory sqliteFactory = [](){
+    return new VeinLogger::SQLiteDB();
+  };
+
   QLoggingCategory::setFilterRules(loggingFilters.join("\n"));
   qSetMessagePattern(categoryLoggingFormat);
 
@@ -47,7 +51,7 @@ int main(int argc, char *argv[])
   VeinNet::NetworkSystem *netSystem = new VeinNet::NetworkSystem(&app);
   VeinNet::TcpSystem *tcpSystem = new VeinNet::TcpSystem(&app);
   VeinApiQml::VeinQml *qmlApi = new VeinApiQml::VeinQml(&app);
-  VeinLogger::DatabaseLogger *binaryDataLogger = new VeinLogger::DatabaseLogger(new VeinLogger::DataSource(qmlApi, &app), &app, VeinLogger::SQLiteDB::STORAGE_MODE::BINARY);
+  VeinLogger::DatabaseLogger *binaryDataLogger = new VeinLogger::DatabaseLogger(new VeinLogger::DataSource(qmlApi, &app), sqliteFactory, &app, VeinLogger::AbstractLoggerDB::STORAGE_MODE::BINARY);
 
 //#error "need local introspection system to introspect the local binary logger for qml VeinEntity"
 
