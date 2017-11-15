@@ -70,7 +70,7 @@ bool LocalIntrospection::processEvent(QEvent *t_event)
           eData = static_cast<EntityData *>(evData);
           Q_ASSERT(eData != nullptr);
 
-          if(eData->eventCommand() == VeinComponent::EntityData::ECMD_SUBSCRIBE)
+          if(eData->eventCommand() == EntityData::Command::ECMD_SUBSCRIBE)
           {
             qDebug() << "Processing command event:" << cEvent << "with command ECMD_SUBSCRIBE, entityId:" << eData->entityId();
             IntrospectionData *newData=nullptr;
