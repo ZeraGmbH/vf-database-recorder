@@ -11,6 +11,8 @@ ApplicationWindow {
   title: qsTr("Database recorder")
   id: root
 
+  readonly property int loggerEntId: 200000;
+
   VeinLogger {
     id: dataLogger
     recordName: "default"
@@ -56,11 +58,11 @@ ApplicationWindow {
       if(entIds !== undefined)
       {
         entIds.push(0);
-        entIds.push(200);
+        entIds.push(loggerEntId);
       }
       else
       {
-        entIds = [0, 200];
+        entIds = [0, loggerEntId];
       }
       VeinEntity.setRequiredIds(entIds)
       entitiesLoaded = true
@@ -84,7 +86,7 @@ ApplicationWindow {
           }
         }
 
-        if(entId === 200)
+        if(entId === loggerEntId)
         {
           dataLogger.logEntity = Qt.binding(function(){
             return VeinEntity.getEntity("_BinaryLoggingSystem");

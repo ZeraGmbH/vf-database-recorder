@@ -31,7 +31,7 @@ bool LocalIntrospection::processEvent(QEvent *t_event)
     evData = cEvent->eventData();
     Q_ASSERT(evData != nullptr);
 
-    if(evData->entityId() == 200)  //binary-logger
+    if(evData->entityId() == 200000)  //binary-logger id
     {
       retVal = true;
       evData->setEventOrigin(VeinEvent::EventData::EventOrigin::EO_LOCAL);
