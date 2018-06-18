@@ -82,7 +82,6 @@ ApplicationWindow {
           if(dataLogger.resolvedIds.indexOf(entId) < 0) //resolved
           {
             resolvedIds.push(entId);
-            checkRequired = true;
           }
         }
 
@@ -93,8 +92,7 @@ ApplicationWindow {
           });
           guiLoader.active = true;
         }
-
-        if(dataLogger.entitiesLoaded === true)
+        else if(dataLogger.entitiesLoaded === true)
         {
           //log all components of all entities
           var tmpEntity = VeinEntity.getEntity(t_entityName);

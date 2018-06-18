@@ -30,7 +30,7 @@ int main(int argc, char *argv[])
                                                 QString("%1.debug=false").arg(VEIN_NET_VERBOSE().categoryName()) <<
                                                 QString("%1.debug=false").arg(VEIN_NET_INTRO_VERBOSE().categoryName()) << //< Introspection logging is still enabled
                                                 QString("%1.debug=false").arg(VEIN_NET_TCP_VERBOSE().categoryName()) <<
-//                                                QString("%1.debug=false").arg(VEIN_STORAGE_HASH_VERBOSE().categoryName()) <<
+                                                QString("%1.debug=false").arg(VEIN_STORAGE_HASH_VERBOSE().categoryName()) <<
                                                 QString("%1.debug=false").arg(VEIN_API_QML_VERBOSE().categoryName());
 
   const VeinLogger::DBFactory sqliteFactory = [](){
@@ -115,7 +115,7 @@ int main(int argc, char *argv[])
   });
 
   QObject::connect(tcpSystem, &VeinNet::TcpSystem::sigConnnectionEstablished, [=]() {
-    qmlApi->setRequiredIds(QList<int>()<<0);
+    qmlApi->entitySubscribeById(0);
   });
 
   return app.exec();
