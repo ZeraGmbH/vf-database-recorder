@@ -13,8 +13,7 @@ Item {
 
     RowLayout {
       id: row1
-      anchors.left: parent.left
-      anchors.right: parent.right
+      width: parent.width
       TextField {
         id: dbFilePath
         placeholderText: "<PATH TO SAVE DB FILE>"
@@ -34,8 +33,7 @@ Item {
     RowLayout {
       id: row2
       //anchors.top: row1.bottom
-      anchors.left: parent.left
-      anchors.right: parent.right
+      width: parent.width
       TextField {
         id: logDuration
         placeholderText: "Duration in ms"
@@ -64,8 +62,7 @@ Item {
 
     RowLayout {
       //anchors.top: row2.bottom
-      anchors.left: parent.left
-      anchors.right: parent.right
+      width: parent.width
 
       Button {
         id: startButton

@@ -105,8 +105,7 @@ int main(int argc, char *argv[])
 
   evHandler->setSubsystems(subSystems);
 
-  //QString netHost = "127.0.0.1";
-  QString netHost = "192.168.7.222";
+  QString netHost = "127.0.0.1";
   int netPort = 12000;
   tcpSystem->connectToServer(netHost, netPort);
 

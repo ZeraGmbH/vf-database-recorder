@@ -57,14 +57,25 @@ ApplicationWindow {
       var entIds = VeinEntity.getEntity("_System")["Entities"];
       if(entIds !== undefined)
       {
-        entIds.push(0);
-        entIds.push(loggerEntId);
+        if(entIds.indexOf(0) === -1)
+        {
+          entIds.push(0);
+        }
+        if(entIds.indexOf(loggerEntId) === -1)
+        {
+          entIds.push(loggerEntId);
+        }
       }
       else
       {
         entIds = [0, loggerEntId];
       }
-      VeinEntity.setRequiredIds(entIds)
+      for(var tmpId in entIds)
+      {
+        VeinEntity.entitySubscribeById(entIds[tmpId]);
+      }
+      dataLogger.requiredIds = entIds;
+      dataLogger.resolvedIds = [0];
       entitiesLoaded = true
     }
 
@@ -72,6 +83,20 @@ ApplicationWindow {
       when: VeinEntity.getEntity("_System")
       value: VeinEntity.getEntity("_System").Session
     }
+
+    function setLoggedEntities()
+    {
+      var entityIdList = resolvedIds;
+      entityIdList.splice(resolvedIds.indexOf(loggerEntId) ,1)
+      for(var tmpIndex in resolvedIds)
+      {
+        //log all components of all entities
+        var tmpEntity = VeinEntity.getEntityById(resolvedIds[tmpIndex]);
+        dataLogger.loggedValues[String(resolvedIds[tmpIndex])] = tmpEntity.keys();
+        dataLogger.loggedValuesChanged();
+      }
+    }
+
 
     Connections {
       target: VeinEntity
@@ -81,7 +106,15 @@ ApplicationWindow {
         {
           if(dataLogger.resolvedIds.indexOf(entId) < 0) //resolved
           {
-            resolvedIds.push(entId);
+            dataLogger.resolvedIds.push(entId);
+            var array1 = dataLogger.resolvedIds.sort();
+            var array2 = dataLogger.requiredIds.sort();
+            if(array1.length === array2.length && array1.every(function(value, index) {
+              return value === array2[index]
+            }))
+            {
+              dataLogger.setLoggedEntities();
+            }
           }
         }
 
@@ -91,15 +124,6 @@ ApplicationWindow {
             return VeinEntity.getEntity("_BinaryLoggingSystem");
           });
           guiLoader.active = true;
-        }
-        else if(dataLogger.entitiesLoaded === true)
-        {
-          //log all components of all entities
-          var tmpEntity = VeinEntity.getEntity(t_entityName);
-          var tmpEntityId = tmpEntity.entityId()
-          var loggedComponents = [];
-          dataLogger.loggedValues[String(tmpEntityId)] = tmpEntity.keys();
-          dataLogger.loggedValuesChanged();
         }
       }
     }
