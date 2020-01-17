@@ -82,14 +82,10 @@ target_include_directories(VfRecorder
     ${CMAKE_CURRENT_SOURCE_DIR}
     )
 
-#set target Version
-set_target_properties(VfRecorder PROPERTIES VERSION ${PROJECT_VERSION})
-set_target_properties(VfRecorder PROPERTIES SOVERSION ${VfRecorder_VERSION_MAJOR})
-
 #install VfRecorder to bin 
 install(TARGETS VfRecorder
     EXPORT VfRecorderExport
-    LIBRARY DESTINATION ${CMAKE_INSTALL_BINDIR}
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
     )
 
 # spawn out some info on configuration
