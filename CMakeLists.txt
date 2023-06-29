@@ -14,7 +14,6 @@ include(FeatureSummary)
 include(GNUInstallDirs)
 
 find_package(Qt5 COMPONENTS Quick Core Qml Sql Network CONFIG REQUIRED)
-find_package(VfQml REQUIRED)
 find_package(VfLogger REQUIRED)
 
 file(GLOB SOURCES 
@@ -47,7 +46,7 @@ target_link_libraries(VfRecorder
     Zera::VfComponent
     Zera::VfStorageHash
     Zera::VfNet2
-    VeinMeta::VfQml
+    Zera::VfQml
     VeinMeta::VfLogger
     )
 
