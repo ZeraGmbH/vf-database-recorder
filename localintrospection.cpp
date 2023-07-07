@@ -16,12 +16,11 @@ LocalIntrospection::LocalIntrospection(VeinStorage::VeinHash *t_storage, QObject
 
 }
 
-bool LocalIntrospection::processEvent(QEvent *t_event)
+void LocalIntrospection::processEvent(QEvent *t_event)
 {
   using namespace VeinEvent;
   using namespace VeinComponent;
 
-  bool retVal;
   if(t_event->type()==CommandEvent::eventType())
   {
     CommandEvent *cEvent = nullptr;
@@ -33,7 +32,6 @@ bool LocalIntrospection::processEvent(QEvent *t_event)
 
     if(evData->entityId() == 200000)  //binary-logger id
     {
-      retVal = true;
       evData->setEventOrigin(VeinEvent::EventData::EventOrigin::EO_LOCAL);
       evData->setEventTarget(VeinEvent::EventData::EventTarget::ET_LOCAL);
       if(cEvent->eventSubtype() == CommandEvent::EventSubtype::TRANSACTION)
@@ -89,7 +87,6 @@ bool LocalIntrospection::processEvent(QEvent *t_event)
               qDebug() << "Sending introspection event:" << newEvent;
 
               emit sigSendEvent(newEvent);
-              retVal = true;
               cEvent->accept();
             }
             else
@@ -110,13 +107,11 @@ bool LocalIntrospection::processEvent(QEvent *t_event)
             //qDebug() << "Processing command event:" << cEvent << "with command CCMD_FETCH, entityId:" << cData->entityId() << "componentName:" << cData->componentName();
 
             cData->setNewValue(m_storage->getStoredValue(cData->entityId(), cData->componentName()));
-            retVal = true;
           }
         }
       }
     }
   }
-  return retVal;
 }
 
 QJsonObject LocalIntrospection::getJsonIntrospection(int t_entityId) const

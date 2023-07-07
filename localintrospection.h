@@ -15,10 +15,7 @@ class LocalIntrospection : public VeinEvent::EventSystem
   Q_OBJECT
 public:
   explicit LocalIntrospection(VeinStorage::VeinHash *t_storage, QObject *parent = 0);
-
-  // EventSystem interface
-public:
-  bool processEvent(QEvent *t_event) override;
+  void processEvent(QEvent *t_event) override;
   QJsonObject getJsonIntrospection(int t_entityId) const;
 
 signals:
