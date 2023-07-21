@@ -42,7 +42,6 @@ target_link_libraries(VfRecorder
     Qt5::Network
     Qt5::Quick
     Zera::VfEvent
-    Zera::VfHelpers
     Zera::VfComponent
     Zera::VfStorageHash
     Zera::VfNet2
