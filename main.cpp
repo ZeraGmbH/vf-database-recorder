@@ -84,7 +84,7 @@ int main(int argc, char *argv[])
   networkWatchdog.setSingleShot(true);
 
   QObject::connect(tcpSystem, &VeinNet::TcpSystem::sigSendEvent, [&](QEvent *t_event){
-    if(t_event->type()==VeinNet::NetworkStatusEvent::getEventType())
+    if(t_event->type()==VeinNet::NetworkStatusEvent::getQEventType())
     {
       //network not ready, try again in 3 seconds
       qDebug() << "Network failed retrying network connection ...";
