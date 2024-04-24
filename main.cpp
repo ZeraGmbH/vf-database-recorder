@@ -8,7 +8,6 @@
 #include <veinqmlwrapper.h>
 #include <vl_databaselogger.h>
 #include <vl_datasource.h>
-#include <vl_qmllogger.h>
 #include <vl_sqlitedb.h>
 #include <vn_networkstatusevent.h>
 #include <vs_veinhash.h>
@@ -55,7 +54,6 @@ int main(int argc, char *argv[])
 //#error "need local introspection system to introspect the local binary logger for qml VeinEntity"
 
   VeinApiQml::VeinQml::setStaticInstance(qmlApi);
-  VeinLogger::QmlLogger::setStaticLogger(binaryDataLogger);
   //only store data for the binary data logger
   storSystem->setAcceptableOrigin({VeinEvent::EventData::EventOrigin::EO_LOCAL});
 
